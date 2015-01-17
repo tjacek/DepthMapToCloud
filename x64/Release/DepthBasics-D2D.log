@@ -1,0 +1,13 @@
+﻿Build started 2015-01-17 14:49:58.
+     1>Project "C:\Users\user\Desktop\kwolek\DepthToCloud\DepthBasics-D2D.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\user\Desktop\kwolek\DepthToCloud\x64\Release\DepthBasics-D2D.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:C:\open2410\build\x64\vc11\lib kernel32.lib user32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib Kinect10.lib opencv_core2410d.lib opencv_imgproc2410.lib opencv_highgui2410.lib opencv_ml2410.lib opencv_video2410.lib opencv_features2d2410.lib opencv_calib3d2410.lib opencv_objdetect2410.lib opencv_contrib2410.lib opencv_legacy2410.lib opencv_flann2410.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\user\Desktop\kwolek\DepthToCloud\x64\Release\DepthBasics-D2D.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\user\Desktop\kwolek\DepthToCloud\x64\Release\DepthBasics-D2D.lib" /MACHINE:X64 x64\Release\DepthBasics.res
+         x64\Release\DepthHelper.obj
+         x64\Release\ImageRenderer.obj
+         x64\Release\DepthBasics.obj
+     1>LINK : fatal error LNK1181: cannot open input file 'opencv_core2410d.lib'
+     1>Done Building Project "C:\Users\user\Desktop\kwolek\DepthToCloud\DepthBasics-D2D.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.16
