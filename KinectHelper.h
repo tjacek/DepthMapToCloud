@@ -17,11 +17,12 @@ class KinectHelper{
 	INuiSensor*             m_pNuiSensor;
 	HANDLE                  m_pDepthStreamHandle;
 	BYTE*                   m_depthRGBX;
+	cv::Mat                 depthImage;
 
 	KinectHelper();
 	~KinectHelper();
 	void ProcessDepth( ImageRenderer* m_pDrawDepth);
 
-    void getMat();
+    void getMat(const NUI_DEPTH_IMAGE_PIXEL * pBufferRun);
 	BYTE * getBytes(const NUI_DEPTH_IMAGE_PIXEL * pBufferRun,BOOL nearMode);
 };

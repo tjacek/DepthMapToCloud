@@ -2,11 +2,11 @@
 
 
 KinectHelper::KinectHelper():
-	//m_pDrawDepth(NULL),
 	m_pDepthStreamHandle(INVALID_HANDLE_VALUE),
 	m_pNuiSensor(NULL)
 {
 	m_depthRGBX = new BYTE[cDepthWidth*cDepthHeight*cBytesPerPixel];
+	depthImage.create(this->cDepthWidth,this->cDepthHeight,CV_16U);
 }
 
 KinectHelper::~KinectHelper(){
@@ -49,16 +49,13 @@ void KinectHelper::ProcessDepth( ImageRenderer*          m_pDrawDepth)
     // Make sure we've received valid data
     if (LockedRect.Pitch != 0)
     {
-        // Get the min and max reliable depth for the current frame
-       // int minDepth = (nearMode ? NUI_IMAGE_DEPTH_MINIMUM_NEAR_MODE : NUI_IMAGE_DEPTH_MINIMUM) >> NUI_IMAGE_PLAYER_INDEX_SHIFT;
-       // int maxDepth = (nearMode ? NUI_IMAGE_DEPTH_MAXIMUM_NEAR_MODE : NUI_IMAGE_DEPTH_MAXIMUM) >> NUI_IMAGE_PLAYER_INDEX_SHIFT;
-
-       // BYTE * rgbrun = m_depthRGBX;
         const NUI_DEPTH_IMAGE_PIXEL * pBufferRun = reinterpret_cast<const NUI_DEPTH_IMAGE_PIXEL *>(LockedRect.pBits);
-		BYTE * rgbrun = getBytes(pBufferRun,nearMode);
+		//BYTE * rgbrun = getBytes(pBufferRun,nearMode);
 
-        // Draw the data with Direct2D
-        m_pDrawDepth->Draw(m_depthRGBX, cDepthWidth * cDepthHeight * cBytesPerPixel);
+        //Draw the data with Direct2D
+        //m_pDrawDepth->Draw(m_depthRGBX, cDepthWidth * cDepthHeight * cBytesPerPixel);
+
+       getMat(pBufferRun);
     }
 
     // We're done with the texture so unlock it
@@ -71,8 +68,21 @@ ReleaseFrame:
     m_pNuiSensor->NuiImageStreamReleaseFrame(m_pDepthStreamHandle, &imageFrame);
 }
 
-void KinectHelper::getMat(){
-
+void KinectHelper::getMat(const NUI_DEPTH_IMAGE_PIXEL * pBufferRun){
+	const NUI_DEPTH_IMAGE_PIXEL * pBufferEnd = pBufferRun + (cDepthWidth * cDepthHeight);
+	int i=0;
+	while ( pBufferRun < pBufferEnd )
+    {
+		int x=i % this->cDepthWidth;
+		int y=(i-x) / this->cDepthWidth;
+        // discard the portion of the depth that contains only the player index
+        USHORT depth = pBufferRun->depth;
+		ushort* p = depthImage.ptr<ushort>(y);
+		p[x]=depth;
+			//this->depthImage.data[i]=depth;		 
+		pBufferRun+=4;
+		i++;
+	}
 }
 
 BYTE * KinectHelper::getBytes(const NUI_DEPTH_IMAGE_PIXEL * pBufferRun,BOOL nearMode){
